@@ -5,6 +5,11 @@ from OpenGL.GLU import *
 window = 0                                             # glut window number
 width, height = 1000, 650                               # window size
 
+#def draw_background():
+
+
+
+
 def draw_rectangle(x, y, width, height):
     glBegin(GL_QUADS)                                  # start drawing a rectangle
     glVertex2f(x, y)                                   # bottom left point
@@ -26,9 +31,27 @@ def draw():                                            # ondraw is called all th
     glLoadIdentity()                                   # reset position
     refresh2d(width, height)                           # set mode to 2d
 
-    # ToDo draw rectangle
+    #glDisable(GL_CULL_FACE)
+    glDisable(GL_LIGHTING)
+
+
+
+    glColor3f(0.0, 1.0, 0.0)
+    draw_rectangle(0.0, 0.0, 1000, 400)                # rect for grass (0, 0) with width 1000, height 400
+
     glColor3f(0.0, 0.0, 1.0)
-    draw_rectangle(50, 10, 100, 200)                   # rect at (10, 10) with width 200, height 100
+    draw_rectangle(0.0, 400.0, 1000, 250)              # rect for sky (0, 400) with width 1000, height 250
+
+    glColor3f(0.2, 0, 0)
+    draw_rectangle(150.0, 90.0, 100, 300)
+
+    # glTranslatef(200.0, 0.0, 400.0)
+    glBegin(GL_TRIANGLES)
+    glColor3f(0.0, 0.2, 0.0)
+    glVertex3f(50.0, 390.0, 0.0)
+    glVertex3f(350.0, 390.0, 0.0)
+    glVertex3f(200.0, 625.0, 0.0)
+    glEnd()
 
     glutSwapBuffers()                                  # important for double buffering
 
