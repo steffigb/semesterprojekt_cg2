@@ -7,7 +7,8 @@ from OpenGL.GLU import *
 window = 0                                             # glut window number
 width, height = 1000, 650                               # window size
 
-startpoint_for_move = 900
+startpoint_dog = 900
+startpoint_bird = 40
 
 #def draw_background():
 
@@ -25,15 +26,31 @@ def draw_dog(x, y, z):
     glVertex3f(x, y, z)
     glEnd()
 
+def draw_bird(x, y, z):
+    glPointSize(20.0)
+    glBegin(GL_POINTS)
+    glVertex3f(x, y, z)
+    glEnd()
+
 
 def move_dog(x, y, z):
-    global startpoint_for_move
+    global startpoint_dog
     #glPushMatrix()
     #glTranslatef(startpoint_for_move, 0.0, 0.0)
-    startpoint_for_move = startpoint_for_move - 3.0
-    if startpoint_for_move < 30:
-        startpoint_for_move = 900
-    draw_dog(startpoint_for_move, y, z)
+    startpoint_dog = startpoint_dog - 3.0
+    if startpoint_dog < 30:
+        startpoint_dog = 900
+    draw_dog(startpoint_dog, y, z)
+    #glPopMatrix()
+
+def move_bird(x, y, z):
+    global startpoint_bird
+    #glPushMatrix()
+    #glTranslatef(startpoint_for_move, 0.0, 0.0)
+    startpoint_bird = startpoint_bird + 2.0
+    if startpoint_bird > 900:
+        startpoint_bird = 40
+    draw_bird(startpoint_bird, y, z)
     #glPopMatrix()
 
 def refresh2d(width, height):
@@ -67,6 +84,8 @@ def draw():                                            # ondraw is called all th
     move_dog(900.0, 100.0, 0.0)
 
 
+
+
     # glTranslatef(200.0, 0.0, 400.0)
     glBegin(GL_TRIANGLES)
     glColor3f(0.0, 0.2, 0.0)
@@ -75,9 +94,12 @@ def draw():                                            # ondraw is called all th
     glVertex3f(200.0, 625.0, 0.0)
     glEnd()
 
+    glColor3f(1.0, 1.0, 0.0)
+    move_bird(40.0, 500.0, 0.0)
+
 
     glutSwapBuffers()                                  # important for double buffering
-    time.sleep(1 / 32)
+    #time.sleep(1 / 32)
 
 # initialization
 glutInit()                                             # initialize glut
