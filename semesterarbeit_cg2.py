@@ -1,3 +1,4 @@
+
 import time
 
 from OpenGL.GL import *
@@ -7,7 +8,7 @@ from OpenGL.GLU import *
 window = 0                                             # glut window number
 width, height = 1000, 650                               # window size
 
-startpoint_dog = 900
+startpoint_dog = 700
 startpoint_bird = 40
 
 #def draw_background():
@@ -21,7 +22,7 @@ def draw_rectangle(x, y, width, height):
     glEnd()                                            # done drawing a rectangle
 
 def draw_dog(x, y, z):
-    glPointSize(20.0)
+    glPointSize(40.0)
     glBegin(GL_POINTS)
     glVertex3f(x, y, z)
     glEnd()
@@ -37,9 +38,9 @@ def move_dog(x, y, z):
     global startpoint_dog
     #glPushMatrix()
     #glTranslatef(startpoint_for_move, 0.0, 0.0)
-    startpoint_dog = startpoint_dog - 3.0
-    if startpoint_dog < 30:
-        startpoint_dog = 900
+    #startpoint_dog = startpoint_dog - 3.0
+    #if startpoint_dog < 30:
+        #startpoint_dog = 900
     draw_dog(startpoint_dog, y, z)
     #glPopMatrix()
 
@@ -60,6 +61,23 @@ def refresh2d(width, height):
     glOrtho(0.0, width, 0.0, height, 0.0, 1.0)
     glMatrixMode (GL_MODELVIEW)
     glLoadIdentity()
+
+# The keyboard controls
+def special(key, x, y):
+    global startpoint_dog
+    # Rotate cube according to keys pressed
+    if key == GLUT_KEY_LEFT:
+        if startpoint_dog >= 30:
+            startpoint_dog = startpoint_dog - 5.0
+    if key == GLUT_KEY_RIGHT:
+        if startpoint_dog <= 970:
+            startpoint_dog = startpoint_dog + 5.0
+    # if key == space:
+    # Hundchen bellt
+    # maybe ~ if key == "q":
+    #       ~ sys.exit()
+
+
 
 def draw():                                            # ondraw is called all the time
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT) # clear the screen
@@ -109,4 +127,6 @@ glutInitWindowPosition(0, 0)                           # set window position
 window = glutCreateWindow("Hund und Vogel")            # create window with title
 glutDisplayFunc(draw)                                  # set draw function callback
 glutIdleFunc(draw)                                     # draw all the time
+# The callback function for keyboard controls
+glutSpecialFunc(special)
 glutMainLoop()                                         # start everything
